@@ -7,20 +7,10 @@ import Todos from './Todos';
 import Todo from './Todo';
 import TodosContainer from './TodosContainer';
 import TodoApp from './TodoApp';
-// const todo = {
-//   isComplete,
-//   text,
-// };
-
-import bgDesktopLight from '../public/images/bg-desktop-light.jpg';
-import bgMobileLight from '../public/images/bg-mobile-light.jpg';
-//
-import bgDesktopDark from '../public/images/bg-desktop-dark.jpg';
-import bgMobileDark from '../public/images/bg-mobile-dark.jpg';
-
-// assets
-import moonIcon from '../public/images/icon-moon.svg';
-import sunIcon from '../public/images/icon-sun.svg';
+import Header from './Header';
+import BackgroundImage from './BackgroundImage';
+import Logo from './Logo';
+import ThemeSwitcher from './ThemeSwitcher';
 
 export default function App() {
   const [theme, setTheme] = useState('light');
@@ -127,40 +117,12 @@ export default function App() {
           : ''
       }`}
     >
-      <div className="background-img">
-        {theme === 'light' ? (
-          <picture>
-            <source media="(max-width: 600px)" srcSet={bgMobileLight} />
-            <img
-              className="background-img--image"
-              src={bgDesktopLight}
-              alt="img background light theme"
-            />
-          </picture>
-        ) : (
-          ''
-        )}
-        {theme === 'dark' ? (
-          <picture>
-            <source media="(max-width: 600px)" srcSet={bgMobileDark} />
-            <img
-              className="background-img--image"
-              src={bgDesktopDark}
-              alt="img background dark theme"
-            />
-          </picture>
-        ) : (
-          ''
-        )}
-      </div>
+      <BackgroundImage theme={theme} />
       <TodoApp>
-        <header className="header">
-          <p className="logo">TODO</p>
-          <button className="btn btn--theme" onClick={handleThemeSwitch}>
-            {theme === 'light' ? <img src={moonIcon} /> : ''}
-            {theme === 'dark' ? <img src={sunIcon} /> : ''}
-          </button>
-        </header>
+        <Header>
+          <Logo />
+          <ThemeSwitcher theme={theme} oneThemeSwitch={handleThemeSwitch} />
+        </Header>
         <TodoInput
           onAddTodo={handleAddTodo}
           onAddTodoIsCompleted={handleAddTodoIsCompleted}
