@@ -1,0 +1,520 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  // light colors
+  --color-blue: hsl(220, 98%, 61%);
+  --color-white: hsl(0, 0%, 100%);
+
+  // light theme colors
+  --color-gray-100: hsl(0, 0%, 98%);
+  --color-gray-200: hsl(236, 33%, 92%);
+  --color-gray-300: hsl(233, 11%, 84%);
+  --color-gray-400: hsl(236, 9%, 61%);
+  --color-gray-500: hsl(235, 19%, 35%);
+
+  // dark theme colors
+  --color-dark-gray-100: hsl(236, 33%, 92%);
+  --color-dark-gray-200: hsl(234, 39%, 85%);
+  --color-dark-gray-300: hsl(234, 11%, 52%);
+  --color-dark-gray-400: hsl(233, 14%, 35%);
+  --color-dark-gray-500: hsl(237, 14%, 26%);
+  --color-dark-blue-100: hsl(235, 24%, 19%);
+  --color-dark-blue-200: hsl(235, 21%, 11%);
+
+  // font family
+  --font-family-josefin: 'Josefin Sans', sans-serif;
+
+  // linear gradient
+  --color-linear-gradient-100: linear-gradient(
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  // shadows
+  --box-shadow-todo: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: var(--font-family-josefin);
+}
+
+.app {
+  min-height: 100vh;
+
+  // padding-top: 7.8rem;
+  padding-bottom: 10rem;
+  position: relative;
+}
+
+.todo-app {
+  width: 54rem;
+  padding-top: 6.4rem;
+  top: 0;
+  margin: 0 auto;
+  z-index: 999;
+  position: relative;
+}
+
+// background image ///////////////////////
+
+.backgound-img {
+  display: block;
+  width: 100%;
+  height: 30rem;
+  position: absolute;
+}
+
+.background-img--image {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: 9;
+}
+
+// BTN ///////////////////////
+
+.btn {
+  background: none;
+  border: none;
+  text-transform: capitalize;
+  transition: 340ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  cursor: pointer;
+}
+
+.btn--theme {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+// header ///////////////////////
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1rem;
+  margin-bottom: 4.4rem;
+}
+
+.logo {
+  color: var(--color-white);
+  font-family: var(--font-family-josefin);
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1.48rem;
+}
+
+// todo input ///////////////////////
+.todo-input {
+  width: 100%;
+  display: flex;
+  gap: 2.4rem;
+  padding: 0 2rem;
+  border-radius: 0.6rem;
+  height: 6.4rem;
+  margin-bottom: 3rem;
+  align-items: center;
+  position: relative;
+  transition: background 440ms;
+
+  &--text {
+    width: calc(95% - 2.4rem);
+    height: 6.4rem;
+    border: none;
+    font-size: 1.8rem;
+    outline: none;
+    font-family: var(--font-family-josefin);
+    transition: background 440ms;
+
+    &::placeholder {
+      font-family: var(--font-family-josefin);
+    }
+  }
+
+  &--label {
+    position: relative;
+    cursor: pointer;
+  }
+
+  &--check {
+    appearance: none;
+    background-color: none;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 5rem;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 5rem;
+      opacity: 0;
+      transition: 240ms ease-in-out;
+    }
+
+    &:checked::before {
+      background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+      opacity: 1;
+    }
+  }
+}
+.icon--check {
+  position: absolute;
+  z-index: 999;
+  height: 0.9rem;
+  width: 1.1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 260ms ease-in-out;
+}
+.input-checked .icon--check {
+  opacity: 1;
+}
+
+// todo container ///////////////////////
+
+.todo-container {
+  width: 100%;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  box-shadow: var(--box-shadow-todo);
+}
+
+// todo element ///////////////////////
+.todo {
+  min-height: 6.4rem;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 0 2rem;
+  justify-content: flex-start;
+  transition: background 440ms;
+  // transition: border 260ms;
+
+  .delete-todo {
+    justify-self: right;
+  }
+  p {
+    text-decoration: none;
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: 0% 0.1rem;
+    margin-right: auto;
+    color: var(--color-gray-500);
+    font-family: var(--font-family-josefin);
+    transition: 340ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+}
+
+.todo-completed {
+  p {
+    color: var(--color-gray-300);
+    // text-decoration: line-through;
+    background-size: 100% 0.1rem;
+  }
+}
+
+// todo element ///////////////////////
+.todo-controlles {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.4rem 2rem;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  font-family: var(--font-family-josefin);
+  font-size: 1.4rem;
+  transition: background 440ms;
+
+  &--center {
+    display: flex;
+    gap: 1rem;
+
+    .btn {
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+  }
+}
+
+// footer paragraph*
+
+.footer {
+  text-align: center;
+  margin-top: 5.2rem;
+
+  color: var(--color-gray-400);
+  font-family: var(--font-family-josefin);
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.014rem;
+}
+
+.theme--light {
+  // this is for the app itself
+  transition: background 440ms;
+  background-color: var(--color-gray-100);
+  .todo-input {
+    background-color: var(--color-white);
+    &--text {
+      background-color: var(--color-white);
+      color: var(--color-gray-500);
+
+      &::placeholder {
+        color: var(--color-gray-300);
+      }
+    }
+    &--label {
+      background: linear-gradient(var(--color-white), var(--color-white))
+          padding-box,
+        linear-gradient(var(--color-gray-300), var(--color-gray-300)) border-box;
+
+      &:hover {
+        background: linear-gradient(var(--color-white), var(--color-white))
+            padding-box,
+          var(--color-linear-gradient-100) border-box;
+      }
+      // var(--color-linear-gradient-100)
+      border-radius: 5rem;
+      border: 1px solid transparent;
+    }
+    // &--check {
+    //   border: 1px solid var(--color-gray-200);
+    // }
+  }
+  .todo {
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+  .todo-completed {
+    p {
+      color: var(--color-gray-300);
+      background-image: linear-gradient(
+        var(--color-gray-300),
+        var(--color-gray-300)
+      );
+    }
+  }
+  .todo-controlles {
+    background-color: var(--color-white);
+
+    &--center {
+      .btn {
+        color: var(--color-gray-400);
+
+        &:hover {
+          color: var(--color-dark-blue-200);
+        }
+      }
+      .filter-active {
+        color: var(--color-blue);
+      }
+    }
+  }
+
+  .todo--num-left {
+    color: var(--color-gray-400);
+  }
+  .btn--clear {
+    color: var(--color-gray-400);
+    &:hover {
+      color: var(--color-dark-blue-200);
+    }
+  }
+}
+// *************************
+//
+// *************************
+.theme--dark {
+  // this is for the app itself
+  transition: background 440ms;
+  background-color: var(--color-dark-blue-200);
+  .todo-input {
+    background-color: var(--color-dark-blue-100);
+    &--text {
+      background-color: var(--color-dark-blue-100);
+      color: var(--color-dark-gray-200);
+
+      &::placeholder {
+        color: var(--color-dark-gray-300);
+      }
+    }
+
+    &--label {
+      background: linear-gradient(
+            var(--color-dark-blue-100),
+            var(--color-dark-blue-100)
+          )
+          padding-box,
+        linear-gradient(var(--color-dark-gray-400), var(--color-dark-gray-400))
+          border-box;
+      transition: 340ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      &:hover {
+        background: linear-gradient(
+              var(--color-dark-blue-100),
+              var(--color-dark-blue-100)
+            )
+            padding-box,
+          var(--color-linear-gradient-100) border-box;
+      }
+      border-radius: 5rem;
+      border: 1px solid transparent;
+    }
+
+    // &--check {
+    //   border: 1px solid var(--color-dark-gray-400);
+    // }
+  }
+  .todo {
+    background-color: var(--color-dark-blue-100);
+    border-bottom: 1px solid var(--color-dark-gray-500);
+    p {
+      color: var(--color-dark-gray-200);
+    }
+  }
+  .todo-completed {
+    p {
+      color: var(--color-dark-gray-300);
+      background-image: linear-gradient(
+        var(--color-dark-gray-300),
+        var(--color-dark-gray-300)
+      );
+    }
+  }
+
+  .todo-controlles {
+    background-color: var(--color-dark-blue-100);
+
+    &--center {
+      .btn {
+        color: var(--color-dark-gray-300);
+
+        &:hover {
+          color: var(--color-dark-gray-100);
+        }
+      }
+      .filter-active {
+        color: var(--color-blue);
+      }
+    }
+  }
+
+  .todo--num-left {
+    color: var(--color-dark-gray-300);
+  }
+  .btn--clear {
+    color: var(--color-dark-gray-300);
+    &:hover {
+      color: var(--color-dark-gray-100);
+    }
+  }
+}
+
+.delete-todo {
+  opacity: 0;
+  visibility: hidden;
+  transition: 460ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.delete-todo--hovered {
+  opacity: 1;
+  visibility: visible;
+}
+
+.todo-controlles--mobile {
+  display: none;
+}
+//  Mobile view
+
+@media screen and (max-width: 600px) {
+  .todo-app {
+    width: 32.7rem;
+  }
+
+  .logo {
+    font-size: 2.7rem;
+  }
+
+  .todo-input {
+    height: 4.8rem;
+
+    &--text {
+      height: 4.8rem;
+      font-size: 1.2rem;
+    }
+
+    &--label {
+      height: 2rem;
+      width: 2rem;
+    }
+    &--check {
+      height: 2rem;
+      width: 2rem;
+
+      &::before {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+
+    .icon--check {
+      height: 0.9rem;
+      width: 1.1rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .todo {
+    font-size: 1.2rem;
+  }
+  .delete-todo {
+    img {
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  }
+  .btn--theme {
+    height: 2rem;
+    width: 2rem;
+
+    img {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+  .todo-controlles--center {
+    display: none;
+  }
+  .todo-controlles--mobile {
+    margin-top: 1.6rem;
+    box-shadow: var(--box-shadow-todo);
+    display: flex;
+    justify-content: center;
+
+    .todo-controlles--center {
+      display: flex;
+    }
+    .todo--num-left {
+      display: none;
+    }
+
+    .btn--clear {
+      display: none;
+    }
+  }
+}
